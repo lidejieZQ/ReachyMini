@@ -55,7 +55,7 @@ toml==0.10.2
 
 # 工具和实用程序
 click==8.1.7
-rich==13.7.0
+rich==14.1.0
 tqdm==4.66.1
 dateutils==0.6.12
 python-dateutil==2.8.2
