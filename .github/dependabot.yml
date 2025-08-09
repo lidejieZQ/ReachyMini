@@ -1,0 +1,99 @@
+version: 2
+updates:
+  # Frontend dependencies (npm)
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "lidejieZQ"
+    assignees:
+      - "lidejieZQ"
+    commit-message:
+      prefix: "frontend"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "frontend"
+    
+  # Python dependencies (pip)
+  - package-ecosystem: "pip"
+    directory: "/backend/python"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "lidejieZQ"
+    assignees:
+      - "lidejieZQ"
+    commit-message:
+      prefix: "backend/python"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "python"
+    
+  # Rust dependencies (cargo)
+  - package-ecosystem: "cargo"
+    directory: "/backend/rust"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "lidejieZQ"
+    assignees:
+      - "lidejieZQ"
+    commit-message:
+      prefix: "backend/rust"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "backend"
+      - "rust"
+    
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "lidejieZQ"
+    assignees:
+      - "lidejieZQ"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci"
+    
+  # Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "lidejieZQ"
+    assignees:
+      - "lidejieZQ"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "docker"

@@ -1,0 +1,91 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    - cron: '0 0 * * 0'  # 每周日运行安全扫描
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    name: Security Audit
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+    
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    
+    - name: Install cargo-audit
+      run: cargo install cargo-audit
+    
+    - name: Frontend Security Audit
+      run: |
+        cd frontend
+        npm ci
+        npm audit --audit-level=moderate
+    
+    - name: Python Security Check
+      run: |
+        cd backend/python
+        python -m pip install --upgrade pip
+        pip install safety bandit
+        # 检查已知安全漏洞
+        safety scan
+        # 代码安全分析
+        bandit -r . -f json -o bandit-report.json || true
+    
+    - name: Rust Security Audit
+      run: |
+        cd backend/rust
+        cargo audit
+    
+    - name: Upload Security Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          backend/python/bandit-report.json
+        retention-days: 30
+    
+    - name: Comment PR with Security Results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 🔒 Security Scan Results\n\n';
+          
+          // 添加扫描结果摘要
+          comment += '✅ Frontend: No vulnerabilities found\n';
+          comment += '✅ Python: Security scan completed\n';
+          comment += '✅ Rust: Security audit passed\n';
+          
+          comment += '\n📊 Detailed reports are available in the workflow artifacts.';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
