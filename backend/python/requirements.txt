@@ -19,7 +19,7 @@ redis==5.0.1
 # 计算机视觉和图像处理
 opencv-python==4.8.1.78
 Pillow==10.1.0
-numpy==1.24.4
+numpy==2.0.2
 scipy==1.11.4
 
 # AI和机器学习
