@@ -4,7 +4,7 @@ uvicorn[standard]==0.24.0
 websockets==12.0
 starlette==0.27.0
 pydantic==2.5.0
-pydantic-settings==2.1.0
+pydantic-settings==2.10.1
 
 # HTTP客户端
 httpx==0.25.2
