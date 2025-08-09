@@ -38,7 +38,7 @@ numpy = { version = "0.24", optional = true }
 
 # 可选的网络功能
 tokio-tungstenite = { version = "0.20", optional = true }
-reqwest = { version = "0.11", features = ["json"], optional = true }
+reqwest = { version = "0.12", features = ["json"], optional = true }
 
 # 可选的数值计算
 ndarray = { version = "0.15", optional = true }
