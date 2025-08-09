@@ -34,7 +34,7 @@ libc = "0.2"
 
 # 可选的Python绑定（升级版本以支持Python 3.13和修复安全漏洞）
 pyo3 = { version = "0.24.1", features = ["extension-module"], optional = true }
-numpy = { version = "0.24", optional = true }
+numpy = { version = "0.25", optional = true }
 
 # 可选的网络功能
 tokio-tungstenite = { version = "0.20", optional = true }
