@@ -26,7 +26,7 @@ serde_json = "1.0"
 anyhow = "1.0"
 thiserror = "1.0"
 log = "0.4"
-env_logger = "0.10"
+env_logger = "0.11"
 chrono = { version = "0.4", features = ["serde"] }
 
 # 基础系统依赖
