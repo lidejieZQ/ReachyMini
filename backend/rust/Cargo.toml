@@ -1,0 +1,82 @@
+[package]
+name = "reachy-mini-rust"
+version = "0.1.0"
+edition = "2021"
+authors = ["ReachyMini Team"]
+description = "High-performance Rust modules for Reachy Mini robot"
+license = "MIT"
+repository = "https://github.com/your-org/reachy-mini"
+
+[lib]
+name = "reachy_mini_rust"
+crate-type = ["cdylib", "rlib"]
+
+# Python扩展模块配置
+[lib.python-extension]
+name = "reachy_mini_rust"
+
+# 移除了有问题的二进制文件配置
+
+[dependencies]
+# 基础运行时和工具
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.10"
+chrono = { version = "0.4", features = ["serde"] }
+
+# 基础系统依赖
+libc = "0.2"
+
+# 可选的Python绑定（升级版本以支持Python 3.13）
+pyo3 = { version = "0.22", features = ["extension-module"], optional = true }
+numpy = { version = "0.22", optional = true }
+
+# 可选的网络功能
+tokio-tungstenite = { version = "0.20", optional = true }
+reqwest = { version = "0.11", features = ["json"], optional = true }
+
+# 可选的数值计算
+ndarray = { version = "0.15", optional = true }
+num-traits = { version = "0.2", optional = true }
+
+# 可选的并发工具
+parking_lot = { version = "0.12", optional = true }
+crossbeam = { version = "0.8", optional = true }
+rayon = { version = "1.8", optional = true }
+
+# 测试依赖
+[dev-dependencies]
+tokio-test = "0.4"
+proptest = "1.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+
+# 性能优化配置
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+# 特性标志
+[features]
+default = ["python-bindings"]
+python-bindings = ["dep:pyo3", "dep:numpy"]
+network = ["dep:tokio-tungstenite", "dep:reqwest"]
+math = ["dep:ndarray", "dep:num-traits"]
+concurrency = ["dep:parking_lot", "dep:crossbeam", "dep:rayon"]
+
+# 工作空间配置已移除，因为crates目录不存在
+
+# 元数据
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
