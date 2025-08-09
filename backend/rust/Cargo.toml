@@ -33,7 +33,7 @@ chrono = { version = "0.4", features = ["serde"] }
 libc = "0.2"
 
 # 可选的Python绑定（升级版本以支持Python 3.13）
-pyo3 = { version = "0.22", features = ["extension-module"], optional = true }
+pyo3 = { version = "0.25", features = ["extension-module"], optional = true }
 numpy = { version = "0.22", optional = true }
 
 # 可选的网络功能
