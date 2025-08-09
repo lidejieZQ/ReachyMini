@@ -80,4 +80,4 @@ python-jose[cryptography]==3.3.0
 # 其他依赖
 psutil==5.9.6
 watchdog==3.0.0
-typing-extensions==4.8.0
+typing-extensions==4.14.1
